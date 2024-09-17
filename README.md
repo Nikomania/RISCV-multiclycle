@@ -4,21 +4,21 @@ VHD implementation of the architecture RISCV
 
 ## Instructions that will be developed:
 
-lw -> opcode = 0000011, funct3 = 010, funct7 = XXXXXXX, tipo I, imediato
-sw -> opcode = 0100011, funct3 = 010, funct7 = XXXXXXX, tipo S, imediato
-add -> opcode = 0110011, funct3 = 000, funct7 = 0000000, tipo R
-addi -> opcode = 0010011, funct3 = 000, funct7 = XXXXXXX, tipo I, imediato
-sub -> opcode = 0110011, funct3 = 000, funct7 = 0100000, tipo R
-and -> opcode = 0110011, funct3 = 111, funct7 = 0000000, tipo R
-or -> opcode = 0110011, funct3 = 110, funct7 = 0000000, tipo R
-xor -> opcode = 0110011, funct3 = 100, funct7 = 0000000, tipo R
-slt -> opcode = 0110011, funct3 = 010, funct7 = 0000000, tipo R
-jal -> opcode = 1101111, funct3 = XXX, funct7 = XXXXXXX, tipo J, imediato
-jalr -> opcode = 1100111, funct3 = 000, funct7 = XXXXXXX, tipo I, imediato
-auipc -> opcode = 0010111, funct3 = XXX, funct7 = XXXXXXX, tipo U, imediato
-lui -> opcode = 0110111, funct3 = XXX, funct7 = XXXXXXX, tipo U, imediato
-beq -> opcode = 1100011, funct3 = 000, funct7 = XXXXXXX, tipo B, imediato
-bne -> opcode = 1100011, funct3 = 001, funct7 = XXXXXXX, tipo B, imediato
+- lw -> opcode = 0000011, funct3 = 010, funct7 = XXXXXXX, tipo I, imediato
+- sw -> opcode = 0100011, funct3 = 010, funct7 = XXXXXXX, tipo S, imediato
+- add -> opcode = 0110011, funct3 = 000, funct7 = 0000000, tipo R
+- addi -> opcode = 0010011, funct3 = 000, funct7 = XXXXXXX, tipo I, imediato
+- sub -> opcode = 0110011, funct3 = 000, funct7 = 0100000, tipo R
+- and -> opcode = 0110011, funct3 = 111, funct7 = 0000000, tipo R
+- or -> opcode = 0110011, funct3 = 110, funct7 = 0000000, tipo R
+- xor -> opcode = 0110011, funct3 = 100, funct7 = 0000000, tipo R
+- slt -> opcode = 0110011, funct3 = 010, funct7 = 0000000, tipo R
+- jal -> opcode = 1101111, funct3 = XXX, funct7 = XXXXXXX, tipo J, imediato
+- jalr -> opcode = 1100111, funct3 = 000, funct7 = XXXXXXX, tipo I, imediato
+- auipc -> opcode = 0010111, funct3 = XXX, funct7 = XXXXXXX, tipo U, imediato
+- lui -> opcode = 0110111, funct3 = XXX, funct7 = XXXXXXX, tipo U, imediato
+- beq -> opcode = 1100011, funct3 = 000, funct7 = XXXXXXX, tipo B, imediato
+- bne -> opcode = 1100011, funct3 = 001, funct7 = XXXXXXX, tipo B, imediato
 
 ## Program inserted in multi_cicle_riscV/instructions.txt:
 
