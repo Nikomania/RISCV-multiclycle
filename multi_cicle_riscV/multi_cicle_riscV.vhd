@@ -94,10 +94,16 @@ component mux_2_4 port (
     o : out std_logic_vector(31 downto 0)
 );
 end component;
+
+component shift_left_one port (
+        A : in signed(31 downto 0);
+        Z : out std_logic_vector(31 downto 0)
+    );
+end component;
 -- SB -> B register signal
 -- SIR -> IR register signal
 signal SPC, SOrigPCMux, SIouDMux, SPCBack : std_logic_vector(31 downto 0); -- 12 bits
-signal SSaidaULA, SA, SB, Smem_ram, SIR, Sdata_register, SMem2RegMux, Sro1, Sro2, SOrigAULAMux, SOrigBULAMux, SULA : std_logic_vector(31 downto 0);
+signal SSaidaULA, SA, SB, Smem_ram, SIR, Sdata_register, SMem2RegMux, Sro1, Sro2, SOrigAULAMux, SOrigBULAMux, SULA, SShift_left : std_logic_vector(31 downto 0);
 signal SgenImm : signed(31 downto 0);
 signal SZero, SEscrevePCCond, SEscrevePC, SIoud, SEscreveMem, SLeMem, SEscreveIR, SEscreveReg, SEscrevePCB, SOrigPC : std_logic;
 signal SMem2Reg, SOrigAULA, SOrigBULA, SALUOp : std_logic_vector(1 downto 0);
@@ -196,12 +202,17 @@ begin
     o => SOrigAULAMux
   );
 
+  shift_left : shift_left_one port map (
+    A => SgenImm,
+    Z => SShift_left
+  );
+
   OrigBULAMux : mux_2_4 port map (
     s => SOrigBULA,
     d0 => SB,
     d1 => x"00000004",
     d2 => STD_LOGIC_VECTOR(SgenImm),
-    d3 => STD_LOGIC_VECTOR(SgenImm),  -- don't know what to put here
+    d3 => SShift_left,
     o => SOrigBULAMux
   );
 
