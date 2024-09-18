@@ -105,14 +105,17 @@ end component;
 signal SPC, SOrigPCMux, SIouDMux, SPCBack : std_logic_vector(31 downto 0); -- 12 bits
 signal SSaidaULA, SA, SB, Smem_ram, SIR, Sdata_register, SMem2RegMux, Sro1, Sro2, SOrigAULAMux, SOrigBULAMux, SULA, SShift_left : std_logic_vector(31 downto 0);
 signal SgenImm : signed(31 downto 0);
-signal SZero, SEscrevePCCond, SEscrevePC, SIoud, SEscreveMem, SLeMem, SEscreveIR, SEscreveReg, SEscrevePCB, SOrigPC : std_logic;
+signal SZero, SEscrevePCCond, SEscrevePC, SIoud, SEscreveMem, SLeMem, SEscreveIR, SEscreveReg, SEscrevePCB, SOrigPC, PCEnable, PCCond : std_logic;
 signal SMem2Reg, SOrigAULA, SOrigBULA, SALUOp : std_logic_vector(1 downto 0);
 signal ScontrolULA : std_logic_vector(3 downto 0);
 
 begin
+  PCCond <= SEscrevePCCond and SZero;
+  PCEnable <= SEscrevePC or PCCond;
+
   PC : simple_reg port map (
     clock => main_clock,
-    wren => SEscrevePC or (SEscrevePCCond and SZero),
+    wren => PCEnable,
     datain => SOrigPCMux, -- std_logic_vector(x"0000" & "00" & SOrigPCMux(13 downto 0)) -- 2 bits more because it'll be later shifted right by 2 (index by word)
     dataout => SPC
   );
