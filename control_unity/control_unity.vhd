@@ -188,14 +188,56 @@ comb_proc : process(main_state, opcode, instruction)
 
             next_main_state <= WriteBack;
           when BType =>
-            ALUOp <= "01";
-            next_main_state <= Memory;
+            EscrevePCCond <= '1';
+            EscrevePC     <= '0';
+            -- IouD          <= '0';  -- it doesn't matter, but maybe it could alter data register and that could be a problem (maybe doesn't matter)
+            EscreveMem    <= '0';
+            -- LeMem         <= '1';  -- it doesn't matter like IouD, but if i put ioud as 0, than this one should be 1 for the same reason
+            EscreveIR     <= '0';
+
+            OrigPC        <= '1';  -- select previously calculated adress
+            ALUOp         <= "01";  -- compare values to jump
+            OrigAULA      <= "01";  -- select A
+            OrigBULA      <= "00";  -- select B
+            -- EscrevePCB    <= '0';
+            EscreveReg    <= '0';
+            -- Mem2Reg       <= "00";  -- it doesn't matter, not writting reg
+            
+            next_main_state <= Fetch;
           when JType =>
-            ALUOp <= "01";
-            next_main_state <= Memory;
+            EscrevePCCond <= '0';
+            EscrevePC     <= '1';
+            -- IouD          <= '0';  -- it doesn't matter, but maybe it could alter data register and that could be a problem (maybe doesn't matter)
+            EscreveMem    <= '0';
+            -- LeMem         <= '1';  -- it doesn't matter like IouD, but if i put ioud as 0, than this one should be 1 for the same reason
+            EscreveIR     <= '0';
+
+            OrigPC        <= '1';  -- it doesn't matter, not writting pc
+            -- ALUOp         <= "00";  -- pre-calculating in case it's a jump or branch instruction
+            -- OrigAULA      <= "00";  -- select pcback
+            -- OrigBULA      <= "10";  -- select imm
+            -- EscrevePCB    <= '0';
+            EscreveReg    <= '1';
+            Mem2Reg       <= "01";
+
+            next_main_state <= Fetch;
           when jalr =>
-            ALUOp <= "01";
-            next_main_state <= Memory;
+            EscrevePCCond <= '0';
+            EscrevePC     <= '1';
+            -- IouD          <= '0';  -- it doesn't matter, but maybe it could alter data register and that could be a problem (maybe doesn't matter)
+            EscreveMem    <= '0';
+            -- LeMem         <= '1';  -- it doesn't matter like IouD, but if i put ioud as 0, than this one should be 1 for the same reason
+            EscreveIR     <= '0';
+
+            OrigPC        <= '0';  -- it doesn't matter, not writting pc
+            ALUOp         <= "00";
+            OrigAULA      <= "01";  -- select A
+            OrigBULA      <= "10";  -- select imm
+            -- EscrevePCB    <= '0';
+            EscreveReg    <= '1';
+            Mem2Reg       <= "01";
+
+            next_main_state <= Fetch;
           when others =>
             next_main_state <= Error;
         end case;
