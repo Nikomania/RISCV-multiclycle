@@ -168,8 +168,22 @@ comb_proc : process(main_state, opcode, instruction)
 
             next_main_state <= WriteBack;
           when auipc =>
-            ALUOp <= "00";
-            next_main_state <= WriteBack;
+            EscrevePCCond <= '0';
+            EscrevePC     <= '0';
+            -- IouD          <= '0';  -- it doesn't matter, but maybe it could alter data register and that could be a problem (maybe doesn't matter)
+            EscreveMem    <= '0';
+            -- LeMem         <= '1';  -- it doesn't matter like IouD, but if i put ioud as 0, than this one should be 1 for the same reason
+            EscreveIR     <= '0';
+
+            -- OrigPC        <= '0';  -- it doesn't matter, not writting pc
+            -- ALUOp         <= "00";  --
+            -- OrigAULA      <= "00";  -- select pcback
+            -- OrigBULA      <= "10";  -- select imm
+            -- EscrevePCB    <= '0';
+            EscreveReg    <= '1';
+            Mem2Reg       <= "00";
+
+            next_main_state <= Fetch;
           when lui =>
             EscrevePCCond <= '0';
             EscrevePC     <= '0';

@@ -38,7 +38,7 @@ begin
                 instr_format <= SB_type;
             when "1101111" => -- UJ-type
                 instr_format <= UJ_type;
-            when "0110111" => -- U-type
+            when "0110111" | "0010111" => -- U-type
                 instr_format <= U_type;
             when others =>
                 instr_format <= R_type; -- Default to R-type

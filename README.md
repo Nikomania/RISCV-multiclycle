@@ -41,8 +41,14 @@ VHD implementation of the architecture RISCV
 - 0x010403e7 = jalr r0x7, r0x8, 16
 - 0x00a00393 = addi r0x7, zero, 0xa
 - 0x00038393 = addi r0x7, r0x7, 0x0
+- 0x00005497 = auipc r0x9, 0x5 (new instruction)
 
 ### Result expected:
 
 0x07 <- 0x00000060: There are 26 instructions, therefore, the index for the instruction is 25, which, in bytes, equals to 100 (0x60)
 91 cycles
+
+#### For new instruction auipc:
+
+0x9 <- 0x00005068
+94 cycles
